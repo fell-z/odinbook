@@ -11,6 +11,7 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require_relative "support/factory_bot"
 require_relative "support/shoulda_matchers"
+require_relative "support/devise"
 
 # Rails.root.glob('spec/support/**/*.rb').sort_by(&:to_s).each { |f| require f }
 
