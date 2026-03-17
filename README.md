@@ -1,24 +1,7 @@
-# README
+# OdinBook
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is [project](https://www.theodinproject.com/lessons/ruby-on-rails-odin-book)
+from **The Odin Project**.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The idea is to make a simple clone of a social media site like Facebook, X, etc.
+by implementing, at least, the core functionality.
