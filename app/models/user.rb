@@ -10,13 +10,11 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
 
-  SENT_OPTS = { foreign_key: :follower_id, inverse_of: :follower, class_name: "Follow", dependent: :destroy }.freeze
-  has_many :follow_requests_sent, -> { pending }, **SENT_OPTS
-  has_many :accepted_follows_sent, -> { accepted }, **SENT_OPTS
-  has_many :followees, through: :accepted_follows_sent
+  has_many :follow_requests_sent, foreign_key: :sender_id, class_name: "FollowRequest", dependent: :destroy
+  has_many :active_follows, foreign_key: :follower_id, class_name: "Follow", dependent: :destroy
+  has_many :followees, through: :active_follows
 
-  RECEIVED_OPTS = { foreign_key: :followee_id, inverse_of: :followee, class_name: "Follow", dependent: :destroy }.freeze
-  has_many :follow_requests_received, -> { pending }, **RECEIVED_OPTS
-  has_many :accepted_follows_received, -> { accepted }, **RECEIVED_OPTS
-  has_many :followers, through: :accepted_follows_received
+  has_many :follow_requests_received, foreign_key: :receiver_id, class_name: "FollowRequest", dependent: :destroy
+  has_many :passive_follows, foreign_key: :followee_id, class_name: "Follow", dependent: :destroy
+  has_many :followers, through: :passive_follows
 end
