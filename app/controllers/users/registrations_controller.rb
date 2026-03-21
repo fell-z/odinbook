@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  skip_before_action :authenticate_user!, only: %i[ new create ]
-
   # protected
 
   # The path used after sign up.
