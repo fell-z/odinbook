@@ -18,8 +18,6 @@ RSpec.describe "User Sessions", type: :request do
       let(:password) { "test_password" }
 
       it "redirects to the root" do
-        pending("root path to defined")
-
         post user_session_path, params: { user: user_credentials }
 
         expect(response).to redirect_to(root_path)

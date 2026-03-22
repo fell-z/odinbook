@@ -13,8 +13,6 @@ RSpec.describe "User Registrations", type: :request do
   describe "POST /users" do
     context "when the new user is valid" do
       it "redirects to the root" do
-        pending("root path to defined")
-
         post user_registration_path, params: { user: attributes_for(:user) }
 
         expect(response).to redirect_to(root_path)
