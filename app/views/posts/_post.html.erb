@@ -1,0 +1,27 @@
+<article id="post_<%= post.id %>">
+  <div class="author-info">
+    <p class="author-avatar">
+      <a href="#">
+        <%= image_tag "default-user.svg", alt: "user avatar", size: 32 %>
+      </a>
+    </p>
+
+    <p class="author-name">
+      <%= post.user.name %>
+    </p>
+  </div>
+
+  <div class="post-body">
+    <%= post.body %>
+  </div>
+
+  <div class="post-actions">
+    <p>
+      <a href="#">Comment</a>
+    </p>
+
+    <p>
+      <%= button_to "Like", [post, post.likes.build] %>
+    </p>
+  </div>
+</article>
