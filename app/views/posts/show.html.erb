@@ -1,7 +1,3 @@
 <section id="content">
-  <% if current_user == @post.user %>
-    <%= link_to "Edit", edit_post_path(@post) %>
-  <% end %>
-
   <%= render @post, comment: @comment, show_view: true %>
 </section>

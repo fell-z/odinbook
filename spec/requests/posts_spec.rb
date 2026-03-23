@@ -70,4 +70,21 @@ RSpec.describe "Posts", type: :request do
       end
     end
   end
+
+  describe "DELETE /posts/:id" do
+    let(:post_model) { create(:post) }
+
+    it "redirects to the posts page without the deleted post" do
+      get post_path(post_model)
+
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include(post_model.body)
+
+      delete post_path(post_model)
+      expect(response).to redirect_to posts_path
+      follow_redirect!
+
+      expect(response.body).to_not include(post_model.body)
+    end
+  end
 end

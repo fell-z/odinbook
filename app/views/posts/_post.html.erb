@@ -27,12 +27,22 @@
     </div>
 
     <div class="post-action-like" id="like-post-<%= post.id %>">
-      <% if post.liked_by?(current_user) %>
-        <%= button_to "Unlike", post.like_by(current_user), method: :delete %>
+      <% if post.likes.any? { |like| like.user_id == current_user.id } %>
+        <%= button_to "Unlike", post.likes.find_by(user_id: current_user.id), method: :delete %>
       <% else %>
         <%= button_to "Like", [ post, post.likes.build ] %>
       <% end %>
     </div>
+
+    <% if current_user == post.user %>
+      <div class="post-action-edit">
+        <%= link_to "Edit", edit_post_path(post) %>
+      </div>
+
+      <div class="post-action-delete">
+        <%= link_to "Delete Post", post, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+      </div>
+    <% end %>
   </section>
 
   <% if show_view %>

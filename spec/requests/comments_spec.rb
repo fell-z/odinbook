@@ -34,4 +34,21 @@ RSpec.describe "Comments", type: :request do
       end
     end
   end
+
+  describe "DELETE /comments/:id" do
+    let(:comment) { create(:comment) }
+
+    it "redirects to the deleted comment's post page without the comment" do
+      get post_path(comment.post)
+
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include(comment.body)
+
+      delete comment_path(comment)
+      expect(response).to redirect_to post_path(comment.post)
+      follow_redirect!
+
+      expect(response.body).to_not include(comment.body)
+    end
+  end
 end

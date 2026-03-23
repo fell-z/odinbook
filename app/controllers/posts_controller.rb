@@ -3,7 +3,7 @@ class PostsController < ApplicationController
     @page_number = params.fetch(:page_number, 1).to_i
     @page_number = 1 if @page_number.zero? || @page_number.negative?
 
-    @posts = Post.includes(:user).recent.page(@page_number)
+    @posts = Post.includes(:user, :likes).recent.page(@page_number)
   end
 
   def show
@@ -36,6 +36,13 @@ class PostsController < ApplicationController
     else
       render :edit, status: :unprocessable_content
     end
+  end
+
+  def destroy
+    post = Post.find(params[:id])
+    post.destroy
+
+    redirect_to posts_path, status: :see_other
   end
 
   private
