@@ -38,5 +38,16 @@ module Odinbook
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Instead of wrapping with a div, just insert the class in the label directly
+    config.action_view.field_error_proc = Proc.new do |html_tag, instance|
+      if html_tag =~ /<label/
+        html_field = Nokogiri::HTML::DocumentFragment.parse(html_tag)
+        html_field.children.add_class("invalid-field")
+        html_field.to_html.html_safe
+      else
+        html_tag
+      end
+    end
   end
 end
