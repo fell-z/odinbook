@@ -1,0 +1,12 @@
+<%= form_with model: post do |f| %>
+  <div class="field">
+    <%= f.label :body do |label| %>
+      <%= label %>
+      <%= f.text_area :body %>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.button post.persisted? ? "Update" : "Create" %>
+  </div>
+<% end %>

@@ -1,27 +1,40 @@
 <article id="post_<%= post.id %>">
-  <div class="author-info">
-    <p class="author-avatar">
-      <a href="#">
-        <%= image_tag "default-user.svg", alt: "user avatar", size: 32 %>
-      </a>
-    </p>
+  <section class="author-info">
+    <div class="author-avatar">
+      <%= image_tag "default-user.svg", alt: "user avatar", size: 32 %>
+    </div>
 
-    <p class="author-name">
+    <div class="author-name">
       <%= post.user.name %>
-    </p>
-  </div>
+    </div>
+  </section>
 
-  <div class="post-body">
-    <%= post.body %>
-  </div>
-
-  <div class="post-actions">
+  <section class="post-body">
     <p>
-      <a href="#">Comment</a>
+      <%= post.body %>
     </p>
+  </section>
 
-    <p>
-      <%= button_to "Like", [post, post.likes.build] %>
-    </p>
-  </div>
+  <section class="post-actions">
+    <% unless show_view %>
+      <div class="post-action-see-more">
+        <%= link_to "See more", post %>
+      </div>
+    <% end %>
+
+    <div class="post-action-comment">
+      <%= link_to "Comment", post_path(post, anchor: "new-comment-form") %>
+    </div>
+
+    <div class="post-action-like">
+      <%= button_to "Like", [ post, post.likes.build ] %>
+    </div>
+  </section>
+
+  <% if show_view %>
+    <section class="comments">
+      <%= render "comments/form", post:, comment: comment || post.comments.build %>
+      <%= render post.comments.select(&:persisted?) %>
+    </section>
+  <% end %>
 </article>

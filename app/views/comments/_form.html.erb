@@ -1,0 +1,8 @@
+<%= form_with model: [ post, comment ], id: "new-comment-form" do |f| %>
+  <%= f.label :body do |label| %>
+    <%= label %>
+    <%= f.text_area :body %>
+  <% end %>
+
+  <%= f.button "Comment" %>
+<% end %>

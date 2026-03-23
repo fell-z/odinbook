@@ -1,0 +1,17 @@
+<article id="comment_<%= comment.id %>">
+  <section class="author-info">
+    <div class="author-avatar">
+      <%= image_tag "default-user.svg", alt: "user avatar", size: 32 %>
+    </div>
+
+    <div class="author-name">
+      <%= comment.user.name %>
+    </div>
+  </section>
+
+  <section class="comment-body">
+    <p>
+      <%= comment.body %>
+    </p>
+  </section>
+</article>
