@@ -44,4 +44,30 @@ RSpec.describe "Posts", type: :request do
       end
     end
   end
+
+  describe "POST /posts" do
+    context "with a valid post" do
+      let(:post_attrs) { attributes_for(:post) }
+
+      it "redirects to the posts page with the new post" do
+        post posts_path, params: { post: post_attrs }
+
+        expect(response).to redirect_to posts_path
+        follow_redirect!
+
+        expect(response.body).to include(post_attrs[:body])
+      end
+    end
+
+    context "with an invalid post" do
+      let(:post_attrs) { attributes_for(:post, body: "") }
+
+      it "renders the new post form with the invalid field having a 'invalid-field' class" do
+        post posts_path, params: { post: post_attrs }
+
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.body).to include("invalid-field")
+      end
+    end
+  end
 end
