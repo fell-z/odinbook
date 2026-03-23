@@ -1,54 +1,27 @@
-<article id="post_<%= post.id %>">
-  <section class="author-info">
-    <div class="author-avatar">
-      <%= image_tag "default-user.svg", alt: "user avatar", size: 32 %>
-    </div>
+<article class="post" id="<%= dom_id(post) %>">
+  <section class="post-content">
+    <section class="author-info">
+      <div class="author-avatar">
+        <%= image_tag "default-user.svg", alt: "user avatar", size: 32 %>
+      </div>
 
-    <div class="author-name">
-      <%= post.user.name %>
-    </div>
-  </section>
+      <div class="author-name">
+        <%= post.user.name %>
+      </div>
+    </section>
 
-  <section class="post-body">
-    <p>
-      <%= post.body %>
-    </p>
-  </section>
+    <section class="post-body">
+      <p>
+        <%= post.body %>
+      </p>
+    </section>
 
-  <section class="post-actions">
-    <% unless show_view %>
-      <div class="post-action-see-more">
+    <% unless content_for?(:show_view) %>
+      <div class="see-more">
         <%= link_to "See more", post %>
       </div>
     <% end %>
-
-    <div class="post-action-comment">
-      <%= link_to "Comment", post_path(post, anchor: "new-comment-form") %>
-    </div>
-
-    <div class="post-action-like" id="like-post-<%= post.id %>">
-      <% if post.likes.any? { |like| like.user_id == current_user.id } %>
-        <%= button_to "Unlike", post.likes.find_by(user_id: current_user.id), method: :delete %>
-      <% else %>
-        <%= button_to "Like", [ post, post.likes.build ] %>
-      <% end %>
-    </div>
-
-    <% if current_user == post.user %>
-      <div class="post-action-edit">
-        <%= link_to "Edit", edit_post_path(post) %>
-      </div>
-
-      <div class="post-action-delete">
-        <%= link_to "Delete Post", post, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-      </div>
-    <% end %>
   </section>
 
-  <% if show_view %>
-    <section class="comments">
-      <%= render "comments/form", post:, comment: comment || post.comments.build %>
-      <%= render post.comments.select(&:persisted?) %>
-    </section>
-  <% end %>
+  <%= content_for(:show_view) %>
 </article>

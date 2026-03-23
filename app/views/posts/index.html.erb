@@ -1,6 +1,6 @@
-<section id="content">
+<section id="posts">
   <% unless @posts.empty? %>
-    <%= render @posts, show_view: false %>
+    <%= render @posts %>
   <% else %>
     No posts were found.
   <% end %>

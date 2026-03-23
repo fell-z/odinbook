@@ -1,3 +1,28 @@
-<section id="content">
-  <%= render @post, comment: @comment, show_view: true %>
-</section>
+<% content_for(:show_view) do %>
+  <section id="post-actions">
+    <div id="post-action-like">
+      <% if @post.likes.any? { |like| like.user_id == current_user.id } %>
+        <%= button_to "Unlike", @post.likes.find_by(user_id: current_user.id), method: :delete %>
+      <% else %>
+        <%= button_to "Like", [ @post, @post.likes.build ] %>
+      <% end %>
+    </div>
+
+    <% if current_user == @post.user %>
+      <div id="post-action-edit">
+        <%= link_to "Edit", edit_post_path(@post) %>
+      </div>
+
+      <div id="post-action-delete">
+        <%= link_to "Delete Post", @post, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+      </div>
+    <% end %>
+  </section>
+
+  <section class="comments">
+    <%= render "comments/form", post: @post, comment: @comment || @post.comments.build %>
+    <%= render @post.comments.select(&:persisted?) %>
+  </section>
+<% end %>
+
+<%= render @post %>
