@@ -26,8 +26,12 @@
       <%= link_to "Comment", post_path(post, anchor: "new-comment-form") %>
     </div>
 
-    <div class="post-action-like">
-      <%= button_to "Like", [ post, post.likes.build ] %>
+    <div class="post-action-like" id="like-post-<%= post.id %>">
+      <% if post.liked_by?(current_user) %>
+        <%= button_to "Unlike", post.like_by(current_user), method: :delete %>
+      <% else %>
+        <%= button_to "Like", [ post, post.likes.build ] %>
+      <% end %>
     </div>
   </section>
 

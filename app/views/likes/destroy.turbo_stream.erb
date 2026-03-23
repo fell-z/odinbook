@@ -1,0 +1,3 @@
+<%= turbo_stream.update "like-post-#{@post.id}" do %>
+  <%= button_to "Like", [ @post, @post.likes.build ] %>
+<% end %>
