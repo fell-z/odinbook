@@ -11,34 +11,31 @@ RSpec.describe User, type: :model do
   it { should have_many(:likes).dependent(:destroy) }
   it { should have_many(:comments).dependent(:destroy) }
 
-  it do
-    should have_many(:follow_requests_sent)
-      .with_foreign_key(:sender_id)
-      .class_name("FollowRequest")
-      .dependent(:destroy)
-  end
+  let(:statuses) { Follow.statuses }
 
   it do
     should have_many(:follow_requests_received)
-      .with_foreign_key(:receiver_id)
-      .class_name("FollowRequest")
+      .conditions(status: statuses[:pending])
+      .with_foreign_key(:followee_id)
+      .class_name("Follow")
       .dependent(:destroy)
   end
 
   it do
-    should have_many(:active_follows)
+    should have_many(:follow_requests_sent)
+      .conditions(status: statuses[:pending])
       .with_foreign_key(:follower_id)
       .class_name("Follow")
       .dependent(:destroy)
   end
 
   it do
-    should have_many(:passive_follows)
-      .with_foreign_key(:followee_id)
+    should have_many(:active_follows)
+      .conditions(status: statuses[:accepted])
+      .with_foreign_key(:follower_id)
       .class_name("Follow")
       .dependent(:destroy)
   end
 
   it { should have_many(:followees).through(:active_follows) }
-  it { should have_many(:followers).through(:passive_follows) }
 end

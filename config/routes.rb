@@ -13,13 +13,11 @@ Rails.application.routes.draw do
     get "sign_up", to: "users/registrations#new"
   end
 
-  scope "/users/:user_id" do
-    resources :follows, only: :create
-    resources :follow_requests, only: :create
+  resources :users, shallow: true, only: :index do
+    resources :follows, only: %i[ create update destroy ]
   end
 
-  resources :follows, only: :destroy
-  resources :follow_requests, only: :destroy
+  get "follow_requests", to: "follows#requests"
 
   resources :posts, shallow: true do
     resources :comments, only: %i[ create destroy ]

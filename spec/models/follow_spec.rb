@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Follow, type: :model do
   subject(:follow) { create(:follow) }
 
+  it { should define_enum_for(:status).with_values(%i[ pending accepted ]).with_default(:pending) }
+
   it { should belong_to(:follower).class_name("User") }
   it { should belong_to(:followee).class_name("User") }
 

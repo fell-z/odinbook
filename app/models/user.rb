@@ -10,11 +10,26 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
 
-  has_many :follow_requests_sent, foreign_key: :sender_id, class_name: "FollowRequest", dependent: :destroy
-  has_many :active_follows, foreign_key: :follower_id, class_name: "Follow", dependent: :destroy
+  has_many :follow_requests_received, -> { pending }, foreign_key: :followee_id, class_name: "Follow", dependent: :destroy
+  has_many :follow_requests_sent, -> { pending }, foreign_key: :follower_id, class_name: "Follow", dependent: :destroy
+
+  has_many :active_follows, -> { accepted }, foreign_key: :follower_id, class_name: "Follow", dependent: :destroy
+
   has_many :followees, through: :active_follows
 
-  has_many :follow_requests_received, foreign_key: :receiver_id, class_name: "FollowRequest", dependent: :destroy
-  has_many :passive_follows, foreign_key: :followee_id, class_name: "Follow", dependent: :destroy
-  has_many :followers, through: :passive_follows
+  def follows?(user)
+    active_follows.exists?(followee: user)
+  end
+
+  def requested_follow?(user)
+    follow_requests_sent.exists?(followee: user)
+  end
+
+  def find_follow(user)
+    active_follows.find_by(followee: user)
+  end
+
+  def find_follow_request(user)
+    follow_requests_sent.find_by(followee: user)
+  end
 end
