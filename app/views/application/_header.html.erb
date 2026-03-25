@@ -1,17 +1,31 @@
 <header>
   <h1>OdinBook</h1>
 
-  <nav id="header-nav">
-    <ul>
-      <li id="user-follow-requests">
-        <%= link_to "Follow Requests", follow_requests_path %>
-      </li>
+  <% if user_signed_in? %>
+    <nav id="header-nav">
+      <ul>
+        <li>
+          <%= link_to "New Post", new_post_path %>
+        </li>
 
-      <li class="user-avatar">
-        <a href="#">
-          <%= image_tag "default-user.svg", alt: "user avatar", size: 48 %>
-        </a>
-      </li>
-    </ul>
-  </nav>
+        <li>
+          <%= link_to "Recent Posts", posts_path %>
+        </li>
+
+        <li>
+          <%= link_to "Users", users_path %>
+        </li>
+
+        <li>
+          <%= link_to "Follow Requests", follow_requests_path %>
+        </li>
+
+        <li class="user-avatar">
+          <a href="#">
+            <%= image_tag "default-user.svg", alt: "user avatar", size: 48 %>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  <% end %>
 </header>
