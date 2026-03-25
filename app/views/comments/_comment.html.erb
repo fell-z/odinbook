@@ -1,7 +1,7 @@
 <article class="comment" id="<%= dom_id(comment) %>">
   <section class="author-info">
     <div class="author-avatar">
-      <%= image_tag "default-user.svg", alt: "user avatar", size: 32 %>
+      <%= avatar_with_fallback(comment.user) %>
     </div>
 
     <div class="author-name">

@@ -1,11 +1,7 @@
 Rails.application.routes.draw do
   root "posts#index"
 
-  devise_for(
-    :users,
-    module: "users",
-    controllers: { registrations: "users/registrations", sessions: "users/sessions" }
-  )
+  devise_for(:users, module: "users")
 
   devise_scope :user do
     get "login", to: "users/sessions#new"

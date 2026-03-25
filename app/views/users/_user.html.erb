@@ -1,7 +1,7 @@
 <li class="user" id="<%= dom_id(user) %>">
   <div class="user-info">
     <div class="user-avatar">
-      <%= image_tag "default-user.svg", alt: "user avatar", size: 32 %>
+      <%= avatar_with_fallback(user) %>
     </div>
 
     <div class="user-name">
