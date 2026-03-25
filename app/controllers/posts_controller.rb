@@ -1,8 +1,9 @@
 class PostsController < ApplicationController
-  def index
-    @page_number = params.fetch(:page_number, 1).to_i
-    @page_number = 1 if @page_number.zero? || @page_number.negative?
+  include PageHandler
 
+  before_action :set_post, only: %i[ edit update destroy ]
+
+  def index
     @posts = Post.includes(:user).recent.page(@page_number)
   end
 
@@ -25,12 +26,9 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
   end
 
   def update
-    @post = Post.find(params[:id])
-
     if @post.update(post_params)
       redirect_to @post
     else
@@ -39,13 +37,16 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    post = Post.find(params[:id])
-    post.destroy
+    @post.destroy
 
     redirect_to posts_path, status: :see_other
   end
 
   private
+
+  def set_post
+    @post = Post.find(params[:id])
+  end
 
   def post_params
     params.expect(post: [ :body ])

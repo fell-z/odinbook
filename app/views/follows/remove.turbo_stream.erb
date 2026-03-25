@@ -1,0 +1,3 @@
+<%= turbo_stream.update "follow-user-#{@follow.followee.id}" do %>
+  <%= button_to "Follow", user_follows_path(@follow.followee) %>
+<% end %>

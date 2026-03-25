@@ -5,13 +5,5 @@
     No posts were found.
   <% end %>
 
-  <nav id="page-actions">
-    <% if @page_number > 1 %>
-      <%= link_to "Previous", posts_path(page_number: @page_number - 1) %>
-    <% end %>
-
-    <% if @page_number < @posts.maximum_pages %>
-      <%= link_to "Next", posts_path(page_number: @page_number + 1) %>
-    <% end %>
-  </nav>
+  <%= page_controls @posts, @page_number %>
 </section>

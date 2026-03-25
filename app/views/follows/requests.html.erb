@@ -1,0 +1,17 @@
+<section id="follow-requests">
+  <% unless @follow_requests.empty? %>
+    <ul>
+      <% @follow_requests.each do |req| %>
+        <li id="follow-user-<%= req.follower.id %>">
+          <span>Follow request received from <%= req.follower.name %></span>
+          <div class="follow-request-interactions">
+            <%= button_to "Accept", req %>
+            <%= button_to "Refuse", follow_refuse_path(req), method: :delete %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>There's no pending requests.</p>
+  <% end %>
+</section>

@@ -1,0 +1,23 @@
+<li class="user" id="<%= dom_id(user) %>">
+  <div class="user-info">
+    <div class="user-avatar">
+      <%= image_tag "default-user.svg", alt: "user avatar", size: 32 %>
+    </div>
+
+    <div class="user-name">
+      <%= user.name %>
+    </div>
+  </div>
+
+  <div class="user-interactions">
+    <div id="follow-user-<%= user.id %>">
+      <% if current_user.follows?(user) %>
+        <%= button_to "Unfollow", current_user.find_follow(user), method: :delete %>
+      <% elsif current_user.requested_follow?(user) %>
+        <%= button_to "Cancel request", current_user.find_follow_request(user), method: :delete %>
+      <% else %>
+        <%= button_to "Follow", user_follows_path(user) %>
+      <% end %>
+    </div>
+  </div>
+</li>

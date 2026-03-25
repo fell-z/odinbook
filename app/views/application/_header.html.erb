@@ -1,9 +1,17 @@
 <header>
   <h1>OdinBook</h1>
 
-  <div class="user-avatar">
-    <a href="#">
-      <%= image_tag "default-user.svg", alt: "user avatar", size: 48 %>
-    </a>
-  </div>
+  <nav id="header-nav">
+    <ul>
+      <li id="user-follow-requests">
+        <%= link_to "Follow Requests", follow_requests_path %>
+      </li>
+
+      <li class="user-avatar">
+        <a href="#">
+          <%= image_tag "default-user.svg", alt: "user avatar", size: 48 %>
+        </a>
+      </li>
+    </ul>
+  </nav>
 </header>

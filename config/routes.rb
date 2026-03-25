@@ -14,10 +14,16 @@ Rails.application.routes.draw do
   end
 
   resources :users, shallow: true, only: :index do
-    resources :follows, only: %i[ create update destroy ]
+    post "follows", to: "follows#send_request"
   end
 
-  get "follow_requests", to: "follows#requests"
+  scope "/follows", as: :follow do
+    get "requests", to: "follows#requests"
+    patch ":id", to: "follows#accept"
+    put ":id", to: "follows#accept"
+    delete ":id", to: "follows#remove", as: :remove
+    delete ":id/refuse", to: "follows#refuse", as: :refuse
+  end
 
   resources :posts, shallow: true do
     resources :comments, only: %i[ create destroy ]
