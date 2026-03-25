@@ -4,7 +4,10 @@ class PostsController < ApplicationController
   before_action :set_post, only: %i[ edit update destroy ]
 
   def index
-    @posts = Post.includes(:user).recent.page(@page_number)
+    @posts = Post.includes(:user)
+      .where(user: [ current_user, *current_user.followees ])
+      .recent
+      .page(@page_number)
   end
 
   def show

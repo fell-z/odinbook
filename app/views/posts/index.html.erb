@@ -2,7 +2,7 @@
   <% unless @posts.empty? %>
     <%= render @posts %>
   <% else %>
-    No posts were found.
+    No posts from you or users you follow were found.
   <% end %>
 
   <%= page_controls @posts, @page_number %>
