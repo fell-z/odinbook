@@ -1,5 +1,5 @@
 <article class="post" id="<%= dom_id(post) %>">
-  <section class="post-content">
+  <% unless current_page?(user_profile_path(current_user)) %>
     <section class="author-info">
       <div class="author-avatar">
         <%= avatar_with_fallback(post.user) %>
@@ -9,19 +9,21 @@
         <%= post.user.name %>
       </div>
     </section>
+  <% end %>
 
-    <section class="post-body">
-      <p>
-        <%= post.body %>
-      </p>
-    </section>
+  <section class="post-body">
+    <p>
+      <%= post.body %>
+    </p>
+  </section>
 
-    <% unless content_for?(:show_view) %>
+  <% unless content_for?(:show_view) %>
+    <section class="post-interactions">
       <div class="see-more">
         <%= link_to "See more", post %>
       </div>
-    <% end %>
-  </section>
+    </section>
+  <% end %>
 
   <%= content_for(:show_view) %>
 </article>

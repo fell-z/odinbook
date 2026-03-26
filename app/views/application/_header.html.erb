@@ -24,11 +24,11 @@
           <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete } %>
         </li>
 
-        <li class="user-avatar">
-          <a href="#">
-            <%= avatar_with_fallback(current_user) %>
-          </a>
-        </li>
+        <% unless current_page?(user_profile_path(current_user)) %>
+          <li class="user-avatar">
+            <%= avatar_with_fallback(current_user, size: 48) %>
+          </li>
+        <% end %>
       </ul>
     </nav>
   <% end %>

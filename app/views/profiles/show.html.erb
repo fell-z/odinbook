@@ -1,0 +1,23 @@
+<section id="user-profile">
+  <div id="user-info">
+    <div id="user-avatar">
+      <%= avatar_with_fallback(@user) %>
+    </div>
+
+    <div id="user-name">
+      <%= @user.name %>
+    </div>
+  </div>
+
+  <section id="profile-interactions">
+    <ul>
+      <li>
+        <%= link_to "Edit Profile", edit_user_profile_path(@user) %>
+      </li>
+    </ul>
+  </section>
+
+  <section id="user-posts">
+    <%= render @user.posts %>
+  </section>
+</section>

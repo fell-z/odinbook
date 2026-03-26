@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :users, shallow: true, only: :index do
     post "follows", to: "follows#send_request"
+    resource :profile, only: %i[ show edit update ]
   end
 
   scope "/follows", as: :follow do

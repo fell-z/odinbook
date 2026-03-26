@@ -1,0 +1,21 @@
+<section id="edit-profile-form">
+  <%= form_with model: @user, url: user_profile_path(@user) do |f| %>
+    <div class="field">
+      <%= f.label :name do |label| %>
+        <%= label %>
+        <%= f.text_field :name %>
+      <% end %>
+    </div>
+
+    <div class="field">
+      <%= f.label :avatar do |label| %>
+        <%= label %>
+        <%= f.file_field :avatar %>
+      <% end %>
+    </div>
+
+    <div>
+      <%= f.button "Update" %>
+    </div>
+  <% end %>
+</section>

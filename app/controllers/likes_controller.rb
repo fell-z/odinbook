@@ -7,8 +7,6 @@ class LikesController < ApplicationController
       if @like.save
         with.turbo_stream
       end
-
-      # TODO: Render turbo stream error message when it fails
     end
   end
 
