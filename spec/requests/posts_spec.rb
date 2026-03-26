@@ -1,14 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe "Posts", type: :request do
-  before do
-    user = create(:user)
-    sign_in user
-  end
+  let(:current_user) { create(:user) }
+  before { sign_in current_user }
 
   describe "GET /posts" do
     context "with one post created" do
-      let!(:post) { create(:post) }
+      let!(:post) { create(:post, user: current_user) }
 
       it "contains a post" do
         get posts_path
@@ -19,8 +17,8 @@ RSpec.describe "Posts", type: :request do
     end
 
     context "with two posts created" do
-      let!(:first_post) { create(:post) }
-      let!(:second_post) { create(:post) }
+      let!(:first_post) { create(:post, user: current_user) }
+      let!(:second_post) { create(:post, user: current_user) }
 
       it "contains two posts" do
         get posts_path
